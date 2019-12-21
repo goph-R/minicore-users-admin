@@ -6,16 +6,12 @@ class UserAdminService extends AdminService {
         return 'user-admin';
     }
     
-    public function getListTitle() {
-        return $this->translation->get('user-admin', 'users');
-    }
-    
-    public function getEditTitle() {
-        return $this->translation->get('user-admin', 'edit_user');        
-    }
-    
-    public function getCreateTitle() {
-        return $this->translation->get('user-admin', 'create_user');        
+    public function getTitles() {
+        return [
+            'list' => ['user-admin', 'users'],
+            'edit' => ['user-admin', 'edit_user'],
+            'create' => ['user-admin', 'create_user']
+        ];
     }
     
     public function createListView(array $filter) {
