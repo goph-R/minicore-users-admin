@@ -26,7 +26,7 @@ class UserAdminService extends AdminService {
             'name'       => ['label' => ['user', 'name']],
             'last_name'  => ['label' => ['user', 'last_name']],
             'first_name' => ['label' => ['user', 'first_name']],
-            'active'     => ['label' => ['app', 'active'], 'view' => 'check', 'align' => 'center'],
+            'active'     => ['label' => ['user-admin', 'active'], 'view' => 'check', 'align' => 'center'],
         ]);
         return $listView;
     }
