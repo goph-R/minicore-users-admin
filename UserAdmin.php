@@ -5,7 +5,7 @@ class UserAdmin extends Admin {
     protected $recordClass = 'User';
     protected $tableName = 'user';
     
-    protected function addSqlWhere($filter) {
+    protected function getWhere($filter) {
         if (!isset($filter['text']) || !$filter['text']) {
             return '';
         }

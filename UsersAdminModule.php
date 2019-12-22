@@ -11,8 +11,11 @@ class UsersAdminModule extends Module {
         $this->framework = $framework;
         $this->framework->add([
             'userAdmin' => 'UserAdmin',
-            'userAdminService' => ['UserAdminService', 'userAdmin', 'user-admin'],
-            'userAdminController' => ['AdminController', 'userAdminService']
+            'userAdminService' => ['UserAdminService', 'userAdmin'],
+            'userAdminController' => ['AdminController', 'userAdminService'],
+            'roleAdmin' => 'RoleAdmin',
+            'roleAdminService' => ['RoleAdminService', 'roleAdmin'],
+            'roleAdminController' => ['AdminController', 'roleAdminService'],
         ]);
     }
     
@@ -26,7 +29,11 @@ class UsersAdminModule extends Module {
             ['user-admin', 'userAdminController', 'index'],
             ['user-admin/delete', 'userAdminController', 'delete'],
             ['user-admin/edit', 'userAdminController', 'edit', ['GET', 'POST']],
-            ['user-admin/create', 'userAdminController', 'create', ['GET', 'POST']]
+            ['user-admin/create', 'userAdminController', 'create', ['GET', 'POST']],
+            ['user-admin/role', 'roleAdminController', 'index'],
+            ['user-admin/role/delete', 'roleAdminController', 'delete'],
+            ['user-admin/role/edit', 'roleAdminController', 'edit', ['GET', 'POST']],
+            ['user-admin/role/create', 'roleAdminController', 'create', ['GET', 'POST']],
         ]);
     }
 

@@ -8,21 +8,22 @@ class UserAdminService extends AdminService {
     
     public function getTitles() {
         return [
-            'list' => ['user-admin', 'users'],
-            'edit' => ['user-admin', 'edit_user'],
-            'create' => ['user-admin', 'create_user']
+            AdminService::LIST   => ['user-admin', 'users'],
+            AdminService::EDIT   => ['user-admin', 'edit_user'],
+            AdminService::CREATE => ['user-admin', 'create_user']
         ];
     }
     
     public function createListView(array $filter) {
         $listView = parent::createListView($filter);
         $listView->setColumns([
-            'id'         => ['label' => 'ID', 'align' => 'right'],
-            'email'      => ['label' => 'Email'],
-            'name'       => ['label' => ['user', 'name']],
-            'last_name'  => ['label' => ['user', 'last_name']],
-            'first_name' => ['label' => ['user', 'first_name']],
-            'active'     => ['label' => ['user-admin', 'active'], 'view' => 'check', 'align' => 'center'],
+            'id'         => ['label' => 'ID', 'width' => '10%', 'align' => 'right'],
+            'email'      => ['label' => 'Email', 'width' => '30%'],
+            'name'       => ['label' => ['user', 'name'], 'width' => '10%'],
+            'last_name'  => ['label' => ['user', 'last_name'], 'width' => '12%'],
+            'first_name' => ['label' => ['user', 'first_name'], 'width' => '12%'],
+            'roles'      => ['label' => ['user-admin', 'roles'], 'view' => 'textArray', 'disabled' => true, 'width' => '16%'],
+            'active'     => ['label' => ['user-admin', 'active'], 'view' => 'check', 'align' => 'center', 'width' => '10%'],
         ]);
         return $listView;
     }
@@ -41,6 +42,15 @@ class UserAdminService extends AdminService {
     public function save(Form $form, Record $record) {
         // $record->setArray($form->getValues());
         // $record->save();
+        return true;
+    }
+    
+    public function deleteByIds(array $ids) {
+        if (in_array($this->userSession->get('id'), $ids)) {
+            $this->setListErrorMessage(['user-admin', 'cant_delete_yourself']);
+        } else {
+            parent::deleteByIds($ids);
+        }
     }
     
 }
