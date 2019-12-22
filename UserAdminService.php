@@ -14,6 +14,34 @@ class UserAdminService extends AdminService {
         ];
     }
     
+    public function showRemoveFilter(array $filter) {
+        return $filter['text'] || $filter['roles'];
+    }
+    
+    protected function removeFilter() {
+        $filter = [
+            'text' => '',
+            'roles' => []
+        ];
+        return $filter;
+    }    
+    
+    /**
+     * @return Form
+     */
+    public function createFilterForm() {
+        /** @var Form $form */
+        $form = parent::createFilterForm();
+        /** @var Roles $roles */
+        $roles = $this->framework->get('roles');
+        $namesByIds = [];
+        foreach ($roles->findAll() as $role) {
+            $namesByIds[$role->getId()] = $role->getName();
+        }
+        $form->addInput(null, ['CheckboxGroupInput', 'roles', $namesByIds, $this->getFilterFromSession('roles', [])]);
+        return $form;
+    }    
+    
     public function createListView(array $filter) {
         $listView = parent::createListView($filter);
         $listView->setColumns([
