@@ -36,4 +36,18 @@ class UserAdmin extends Admin {
         return $result;
     }
     
+    public function saveRoles($userId, array $roleIds) {
+        $this->db->query(
+            "DELETE FROM user_role WHERE user_id = :id", [
+            ':id' => $userId
+        ]);
+        foreach ($roleIds as $roleId) {
+            $this->db->query(
+                "INSERT INTO user_role (user_id, role_id) VALUES (:user_id, :role_id)", [
+                ':user_id' => $userId,
+                ':role_id' => $roleId
+            ]);
+        }
+    }
+    
 }    

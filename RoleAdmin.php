@@ -5,7 +5,7 @@ class RoleAdmin extends Admin {
     protected $recordClass = 'Role';
     protected $tableName = 'role';
 
-    public function getSelect($fields='*') {
+    public function getSelect($fields='*', array $filter=[]) {
         if ($fields == '*') {
             $fields = "r.id AS id, rt.name AS name";
         }
@@ -36,5 +36,18 @@ class RoleAdmin extends Admin {
         $this->addSqlParams(['id' => $id]);
         return $this->db->fetch($this->recordClass, $query, $this->sqlParams);
     }
-   
+
+    public function savePermissions($roleId, array $permissionsIds) {
+        $this->db->query(
+            "DELETE FROM role_permission WHERE role_id = :id", [
+            ':id' => $roleId
+        ]);
+        foreach ($permissionsIds as $permissionId) {
+            $this->db->query(
+                "INSERT INTO role_permission (role_id, permission_id) VALUES (:role_id, :permission_id)", [
+                ':role_id' => $roleId,
+                ':permission_id' => $permissionId
+            ]);
+        }
+    }   
 }
