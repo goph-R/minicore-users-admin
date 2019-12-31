@@ -65,12 +65,12 @@ class UserAdminService extends AdminService {
                 'label' => ['user', 'name'],
                 'width' => '10%'
             ],
-            'last_name' => [
-                'label' => ['user', 'last_name'],
-                'width' => '12%'
-            ],
             'first_name' => [
                 'label' => ['user', 'first_name'],
+                'width' => '12%'
+            ],
+            'last_name' => [
+                'label' => ['user', 'last_name'],
                 'width' => '12%'
             ],
             'roles' => [
