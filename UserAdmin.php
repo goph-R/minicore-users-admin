@@ -10,7 +10,7 @@ class UserAdmin extends Admin {
             $fields = "u.*";
         }
         $query = "SELECT $fields FROM {$this->tableName} AS u";
-        if ($filter['roles']) {
+        if (isset($filter['roles']) && $filter['roles']) {
             $in = $this->db->getInConditionAndParams($filter['roles']);
             $query .= " JOIN user_role AS ur ON ur.user_id = u.id AND ur.role_id IN (".$in['condition'].")";
             $this->addSqlParams($in['params']);
