@@ -158,7 +158,7 @@ class UserAdminService extends AdminService {
     }
     
     public function deleteByIds(array $ids) {
-        if (in_array($this->userSession->get('id'), $ids)) {
+        if (in_array($this->userSession->getId(), $ids)) {
             $this->setListErrorMessage(['user-admin', 'cant_delete_yourself']);
         } else {
             parent::deleteByIds($ids);

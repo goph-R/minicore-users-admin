@@ -14,7 +14,7 @@ class SelfActiveValidator extends Validator {
     }
     
     public function doValidate($value) {
-        return $value || $this->userSession->get('id') != $this->id;
+        return $value || $this->userSession->getId() != $this->id;
     }
     
 }

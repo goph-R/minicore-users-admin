@@ -14,7 +14,7 @@ class SelfAdministratorValidator extends Validator {
     }
     
     public function doValidate($value) {
-        return in_array(Roles::ADMINISTRATOR_ID, $value) || $this->userSession->get('id') != $this->id;
+        return in_array(Roles::ADMINISTRATOR_ID, $value) || $this->userSession->getId() != $this->id;
     }
     
 }
