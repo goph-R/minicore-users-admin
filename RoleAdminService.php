@@ -14,17 +14,20 @@ class RoleAdminService extends AdminService {
         ];
     }
     
+    public function getDefaultOrderBy() {
+        return 'name';
+    }
+    
+    public function getDefaultOrderDir() {
+        return 'asc';
+    }    
+    
     public function createListView(array $filter) {
         $listView = parent::createListView($filter);
         $listView->setColumns([
-            'id' => [
-                'label' => 'ID',
-                'align' => 'right',
-                'width' => '10%'
-            ],
             'name' => [
                 'label' => ['user-admin', 'name'],
-                'width' => '30%'
+                'width' => '40%'
             ],
             'permissions' => [
                 'label' => ['user-admin', 'permissions'],

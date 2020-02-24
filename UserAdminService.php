@@ -15,7 +15,7 @@ class UserAdminService extends AdminService {
             AdminService::EDIT   => ['user-admin', 'edit_user'],
             AdminService::CREATE => ['user-admin', 'create_user']
         ];
-    } 
+    }
     
     /**
      * @return Form
@@ -49,17 +49,20 @@ class UserAdminService extends AdminService {
         return $filter;
     }    
     
+    public function getDefaultOrderBy() {
+        return 'email';
+    }
+    
+    public function getDefaultOrderDir() {
+        return 'asc';
+    }
+    
     public function createListView(array $filter) {
         $listView = parent::createListView($filter);
         $listView->setColumns([
-            'id' => [
-                'label' => 'ID',
-                'width' => '10%',
-                'align' => 'right'
-            ],
             'email' => [
                 'label' => 'Email',
-                'width' => '30%'
+                'width' => '40%'
             ],
             'name' => [
                 'label' => ['user', 'name'],
