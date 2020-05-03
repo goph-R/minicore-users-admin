@@ -5,8 +5,8 @@ class AdministratorPermissionValidator extends Validator {
     /** @var UserSession */
     protected $id;
     
-    public function __construct(Framework $framework, $id) {
-        parent::__construct($framework);
+    public function __construct($id) {
+        parent::__construct();
         $this->id = $id;
         $this->message = $this->translation->get('user-admin', 'cant_remove_admin_permission');
     }

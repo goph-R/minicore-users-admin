@@ -40,7 +40,8 @@ class RoleAdminService extends AdminService {
     }
     
     public function createForm(Record $record) {
-        $form = $this->framework->create(['Form', 'data']);
+        $framework = Framework::instance();
+        $form = $framework->create(['Form', 'data']);
         $this->createNameInput($form, $record);
         $this->createPermissionsInput($form, $record);
         $form->addInput('', ['SubmitInput', 'submit', text('admin', 'save')]);
@@ -59,7 +60,8 @@ class RoleAdminService extends AdminService {
     }
 
     private function createPermissionsInput(Form $form, Record $record) {
-        $permissions = $this->framework->get('permissions');
+        $framework = Framework::instance();
+        $permissions = $framework->get('permissions');
         $namesByIds = [];
         foreach ($permissions->findAll() as $permission) {
             $namesByIds[$permission->getId()] = $permission->getName();

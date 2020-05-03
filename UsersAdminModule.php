@@ -2,14 +2,11 @@
 
 class UsersAdminModule extends Module {
     
-    /** @var Framework */
-    protected $framework;
     protected $id = 'minicore-users-admin';
 
-    public function __construct(Framework $framework) {
-        parent::__construct($framework);
-        $this->framework = $framework;
-        $this->framework->add([
+    public function __construct() {
+        $framework = Framework::instance();
+        $framework->add([
             'userAdmin' => 'UserAdmin',
             'userAdminService' => ['UserAdminService', 'userAdmin'],
             'userAdminController' => ['AdminController', 'userAdminService'],
@@ -20,11 +17,12 @@ class UsersAdminModule extends Module {
     }
     
     public function init() {
+        $framework = Framework::instance();
         /** @var Translation $translation */
-        $translation = $this->framework->get('translation');
+        $translation = $framework->get('translation');
         $translation->add('user-admin', 'modules/minicore-users-admin/translations');
         /** @var Router $router */
-        $router = $this->framework->get('router');
+        $router = $framework->get('router');
         $router->add([
             ['user-admin', 'userAdminController', 'index'],
             ['user-admin/delete', 'userAdminController', 'delete'],

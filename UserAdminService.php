@@ -21,18 +21,19 @@ class UserAdminService extends AdminService {
      * @return Form
      */
     public function createFilterForm() {
+        $framework = Framework::instance();
         /** @var Form $form */
         $form = parent::createFilterForm();
         /** @var Roles $roles */
-        $roles = $this->framework->get('roles');
+        $roles = $framework->get('roles');
         $namesByIds = [];
         foreach ($roles->findAll() as $role) {
             $namesByIds[$role->getId()] = $role->getName();
         }
         $defaultValue = $this->getFilterFromSession('roles', []);
-        $form->addInput(null, ['CheckboxGroupInput', 'roles', $namesByIds, $defaultValue]);
+        $form->addInput(null, ['CheckboxGroupInput', 'roles', $namesByIds, $defaultValue]);        
         /** @var View $view */
-        $view = $this->framework->get('view');
+        $view = $framework->get('view');
         $view->addScript('/modules/minicore-users-admin/static/role-filter-checkboxes.js');
         return $form;
     }    
@@ -93,7 +94,8 @@ class UserAdminService extends AdminService {
     }
     
     public function createForm(Record $record) {
-        $form = $this->framework->create(['Form', 'data']);
+        $framework = Framework::instance();
+        $form = $framework->create(['Form', 'data']);
         $form->addInput('Email', ['TextInput', 'email', $record->get('email')]);
         /** @var TextInput $passwordInput */
         $pwDescription = $record->isNew() ? null : ['user', 'set_if_change_password'];
@@ -129,7 +131,8 @@ class UserAdminService extends AdminService {
     }
     
     private function createRolesInput(Form $form, Record $record) {
-        $roles = $this->framework->get('roles');
+        $framework = Framework::instance();
+        $roles = $framework->get('roles');
         $namesByIds = [];
         foreach ($roles->findAll() as $role) {
             $namesByIds[$role->getId()] = $role->getName();
